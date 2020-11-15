@@ -19,6 +19,13 @@
     </properties>
 
     <dependencies>
+        <!-- LK个人博客应用 -->
+        <dependency>
+            <groupId>me.zhengjie</groupId>
+            <artifactId>lk_blog</artifactId>
+           <version>2.6</version>
+        </dependency>
+
         <!-- 代码生成模块 -->
         <dependency>
             <groupId>me.zhengjie</groupId>
