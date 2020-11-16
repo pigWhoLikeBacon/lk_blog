@@ -35,24 +35,43 @@ import java.io.Serializable;
 **/
 @Entity
 @Data
-@Table(name="lkblog_tag")
-public class Tag implements Serializable {
+@Table(name="lkblog_article")
+public class Article implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tag_id")
+    @Column(name = "article_id")
     @ApiModelProperty(value = "ID")
-    private Long tagId;
+    private Long articleId;
+
+    @Column(name = "cover",nullable = false)
+    @NotBlank
+    @ApiModelProperty(value = "文章封面")
+    private String cover;
+
+    @Column(name = "introduce",nullable = false)
+    @NotBlank
+    @ApiModelProperty(value = "简介")
+    private String introduce;
+
+    @Column(name = "title",nullable = false)
+    @NotBlank
+    @ApiModelProperty(value = "题目")
+    private String title;
 
     @Column(name = "content",nullable = false)
     @NotBlank
     @ApiModelProperty(value = "内容")
     private String content;
 
-    @Column(name = "color",nullable = false)
-    @NotBlank
-    @ApiModelProperty(value = "color")
-    private String color;
+    @Column(name = "views")
+    @ApiModelProperty(value = "浏览量")
+    private Long views;
+
+    @Column(name = "is_show",nullable = false)
+    @NotNull
+    @ApiModelProperty(value = "是否展示")
+    private Boolean isShow;
 
     @Column(name = "create_time")
     @CreationTimestamp
@@ -64,7 +83,7 @@ public class Tag implements Serializable {
     @ApiModelProperty(value = "更新时间")
     private Timestamp updateTime;
 
-    public void copy(Tag source){
+    public void copy(Article source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

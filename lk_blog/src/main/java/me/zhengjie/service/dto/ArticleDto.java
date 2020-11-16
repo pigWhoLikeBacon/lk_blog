@@ -16,14 +16,42 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
-import java.util.List;
-import me.zhengjie.annotation.Query;
+import java.sql.Timestamp;
+import java.io.Serializable;
 
 /**
 * @website https://el-admin.vip
+* @description /
 * @author LK
 * @date 2020-11-16
 **/
 @Data
-public class TagQueryCriteria{
+public class ArticleDto implements Serializable {
+
+    /** ID */
+    private Long articleId;
+
+    /** 文章封面 */
+    private String cover;
+
+    /** 简介 */
+    private String introduce;
+
+    /** 题目 */
+    private String title;
+
+    /** 内容 */
+    private String content;
+
+    /** 浏览量 */
+    private Long views;
+
+    /** 是否展示 */
+    private Boolean isShow;
+
+    /** 创建日期 */
+    private Timestamp createTime;
+
+    /** 更新时间 */
+    private Timestamp updateTime;
 }

@@ -16,9 +16,9 @@
 package me.zhengjie.rest;
 
 import me.zhengjie.annotation.Log;
-import me.zhengjie.domain.Tag;
-import me.zhengjie.service.TagService;
-import me.zhengjie.service.dto.TagQueryCriteria;
+import me.zhengjie.domain.Article;
+import me.zhengjie.service.ArticleService;
+import me.zhengjie.service.dto.ArticleQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,50 +38,50 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "lkblog_文章管理")
-@RequestMapping("/api/tag")
-public class TagController {
+@RequestMapping("/api/article")
+public class ArticleController {
 
-    private final TagService tagService;
+    private final ArticleService articleService;
 
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
-    @PreAuthorize("@el.check('tag:list')")
-    public void download(HttpServletResponse response, TagQueryCriteria criteria) throws IOException {
-        tagService.download(tagService.queryAll(criteria), response);
+    @PreAuthorize("@el.check('article:list')")
+    public void download(HttpServletResponse response, ArticleQueryCriteria criteria) throws IOException {
+        articleService.download(articleService.queryAll(criteria), response);
     }
 
     @GetMapping
     @Log("查询lkblog_文章")
     @ApiOperation("查询lkblog_文章")
-    @PreAuthorize("@el.check('tag:list')")
-    public ResponseEntity<Object> query(TagQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(tagService.queryAll(criteria,pageable),HttpStatus.OK);
+    @PreAuthorize("@el.check('article:list')")
+    public ResponseEntity<Object> query(ArticleQueryCriteria criteria, Pageable pageable){
+        return new ResponseEntity<>(articleService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
     @PostMapping
     @Log("新增lkblog_文章")
     @ApiOperation("新增lkblog_文章")
-    @PreAuthorize("@el.check('tag:add')")
-    public ResponseEntity<Object> create(@Validated @RequestBody Tag resources){
-        return new ResponseEntity<>(tagService.create(resources),HttpStatus.CREATED);
+    @PreAuthorize("@el.check('article:add')")
+    public ResponseEntity<Object> create(@Validated @RequestBody Article resources){
+        return new ResponseEntity<>(articleService.create(resources),HttpStatus.CREATED);
     }
 
     @PutMapping
     @Log("修改lkblog_文章")
     @ApiOperation("修改lkblog_文章")
-    @PreAuthorize("@el.check('tag:edit')")
-    public ResponseEntity<Object> update(@Validated @RequestBody Tag resources){
-        tagService.update(resources);
+    @PreAuthorize("@el.check('article:edit')")
+    public ResponseEntity<Object> update(@Validated @RequestBody Article resources){
+        articleService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Log("删除lkblog_文章")
     @ApiOperation("删除lkblog_文章")
-    @PreAuthorize("@el.check('tag:del')")
+    @PreAuthorize("@el.check('article:del')")
     @DeleteMapping
     public ResponseEntity<Object> delete(@RequestBody Long[] ids) {
-        tagService.deleteAll(ids);
+        articleService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

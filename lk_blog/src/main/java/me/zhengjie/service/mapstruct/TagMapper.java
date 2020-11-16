@@ -24,7 +24,7 @@ import org.mapstruct.ReportingPolicy;
 /**
 * @website https://el-admin.vip
 * @author LK
-* @date 2020-11-15
+* @date 2020-11-16
 **/
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TagMapper extends BaseMapper<TagDto, Tag> {

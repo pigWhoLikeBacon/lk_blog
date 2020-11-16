@@ -22,7 +22,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 /**
 * @website https://el-admin.vip
 * @author LK
-* @date 2020-11-15
+* @date 2020-11-16
 **/
 public interface TagRepository extends JpaRepository<Tag, Long>, JpaSpecificationExecutor<Tag> {
 }

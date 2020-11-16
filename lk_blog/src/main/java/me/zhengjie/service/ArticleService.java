@@ -15,9 +15,9 @@
 */
 package me.zhengjie.service;
 
-import me.zhengjie.domain.Tag;
-import me.zhengjie.service.dto.TagDto;
-import me.zhengjie.service.dto.TagQueryCriteria;
+import me.zhengjie.domain.Article;
+import me.zhengjie.service.dto.ArticleDto;
+import me.zhengjie.service.dto.ArticleQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import java.util.Map;
 import java.util.List;
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 * @author LK
 * @date 2020-11-16
 **/
-public interface TagService {
+public interface ArticleService {
 
     /**
     * 查询数据分页
@@ -38,34 +38,34 @@ public interface TagService {
     * @param pageable 分页参数
     * @return Map<String,Object>
     */
-    Map<String,Object> queryAll(TagQueryCriteria criteria, Pageable pageable);
+    Map<String,Object> queryAll(ArticleQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
     * @param criteria 条件参数
-    * @return List<TagDto>
+    * @return List<ArticleDto>
     */
-    List<TagDto> queryAll(TagQueryCriteria criteria);
+    List<ArticleDto> queryAll(ArticleQueryCriteria criteria);
 
     /**
      * 根据ID查询
-     * @param tagId ID
-     * @return TagDto
+     * @param articleId ID
+     * @return ArticleDto
      */
-    TagDto findById(Long tagId);
+    ArticleDto findById(Long articleId);
 
     /**
     * 创建
     * @param resources /
-    * @return TagDto
+    * @return ArticleDto
     */
-    TagDto create(Tag resources);
+    ArticleDto create(Article resources);
 
     /**
     * 编辑
     * @param resources /
     */
-    void update(Tag resources);
+    void update(Article resources);
 
     /**
     * 多选删除
@@ -79,5 +79,5 @@ public interface TagService {
     * @param response /
     * @throws IOException /
     */
-    void download(List<TagDto> all, HttpServletResponse response) throws IOException;
+    void download(List<ArticleDto> all, HttpServletResponse response) throws IOException;
 }

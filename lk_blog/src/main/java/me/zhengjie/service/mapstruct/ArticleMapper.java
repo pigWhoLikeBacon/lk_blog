@@ -13,17 +13,20 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.service.dto;
+package me.zhengjie.service.mapstruct;
 
-import lombok.Data;
-import java.util.List;
-import me.zhengjie.annotation.Query;
+import me.zhengjie.base.BaseMapper;
+import me.zhengjie.domain.Article;
+import me.zhengjie.service.dto.ArticleDto;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
 /**
 * @website https://el-admin.vip
 * @author LK
 * @date 2020-11-16
 **/
-@Data
-public class TagQueryCriteria{
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface ArticleMapper extends BaseMapper<ArticleDto, Article> {
+
 }
