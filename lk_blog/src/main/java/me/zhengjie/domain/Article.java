@@ -26,6 +26,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.*;
 import java.sql.Timestamp;
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
 * @website https://el-admin.vip
@@ -43,6 +44,13 @@ public class Article implements Serializable {
     @Column(name = "article_id")
     @ApiModelProperty(value = "ID")
     private Long articleId;
+
+    @ManyToMany
+    @JoinTable(name = "lkblog_article_tag",
+            joinColumns = {@JoinColumn(name = "article_id",referencedColumnName = "article_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id",referencedColumnName = "tag_id")})
+    @ApiModelProperty(value = "标签")
+    private Collection<Tag> Tags;
 
     @Column(name = "cover",nullable = false)
     @NotBlank

@@ -15,6 +15,7 @@
 */
 package me.zhengjie.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,6 +27,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.*;
 import java.sql.Timestamp;
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
 * @website https://el-admin.vip
@@ -43,6 +45,11 @@ public class Tag implements Serializable {
     @Column(name = "tag_id")
     @ApiModelProperty(value = "ID")
     private Long tagId;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "tags")
+    @ApiModelProperty(value = "文章")
+    private Collection<Article> Article;
 
     @Column(name = "content",nullable = false)
     @NotBlank
