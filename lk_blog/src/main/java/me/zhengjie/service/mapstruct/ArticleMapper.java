@@ -23,10 +23,10 @@ import org.mapstruct.ReportingPolicy;
 
 /**
 * @website https://el-admin.vip
-* @author LK
-* @date 2020-11-16
+* @author lk
+* @date 2020-11-24
 **/
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", uses = {TagMapper.class}, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ArticleMapper extends BaseMapper<ArticleDto, Article> {
 
 }

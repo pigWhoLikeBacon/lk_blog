@@ -40,70 +40,70 @@ import java.util.LinkedHashMap;
 /**
 * @website https://el-admin.vip
 * @description 服务实现
-* @author LK
-* @date 2020-11-16
+* @author lk
+* @date 2020-11-24
 **/
 @Service
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
 
-    private final ArticleRepository articleRepository;
-    private final ArticleMapper articleMapper;
+    private final ArticleRepository ArticleRepository;
+    private final ArticleMapper ArticleMapper;
 
     @Override
     public Map<String,Object> queryAll(ArticleQueryCriteria criteria, Pageable pageable){
-        Page<Article> page = articleRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
-        return PageUtil.toPage(page.map(articleMapper::toDto));
+        Page<Article> page = ArticleRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
+        return PageUtil.toPage(page.map(ArticleMapper::toDto));
     }
 
     @Override
     public List<ArticleDto> queryAll(ArticleQueryCriteria criteria){
-        return articleMapper.toDto(articleRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
+        return ArticleMapper.toDto(ArticleRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
     }
 
     @Override
     @Transactional
-    public ArticleDto findById(Long articleId) {
-        Article article = articleRepository.findById(articleId).orElseGet(Article::new);
-        ValidationUtil.isNull(article.getArticleId(),"Article","articleId",articleId);
-        return articleMapper.toDto(article);
+    public ArticleDto findById(Long id) {
+        Article Article = ArticleRepository.findById(id).orElseGet(Article::new);
+        ValidationUtil.isNull(Article.getId(),"Article","id",id);
+        return ArticleMapper.toDto(Article);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ArticleDto create(Article resources) {
-        return articleMapper.toDto(articleRepository.save(resources));
+        return ArticleMapper.toDto(ArticleRepository.save(resources));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(Article resources) {
-        Article article = articleRepository.findById(resources.getArticleId()).orElseGet(Article::new);
-        ValidationUtil.isNull( article.getArticleId(),"Article","id",resources.getArticleId());
-        article.copy(resources);
-        articleRepository.save(article);
+        Article Article = ArticleRepository.findById(resources.getId()).orElseGet(Article::new);
+        ValidationUtil.isNull( Article.getId(),"Article","id",resources.getId());
+        Article.copy(resources);
+        ArticleRepository.save(Article);
     }
 
     @Override
     public void deleteAll(Long[] ids) {
-        for (Long articleId : ids) {
-            articleRepository.deleteById(articleId);
+        for (Long id : ids) {
+            ArticleRepository.deleteById(id);
         }
     }
 
     @Override
     public void download(List<ArticleDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
-        for (ArticleDto article : all) {
+        for (ArticleDto Article : all) {
             Map<String,Object> map = new LinkedHashMap<>();
-            map.put("文章封面", article.getCover());
-            map.put("简介", article.getIntroduce());
-            map.put("题目", article.getTitle());
-            map.put("内容", article.getContent());
-            map.put("浏览量", article.getViews());
-            map.put("是否展示", article.getIsShow());
-            map.put("创建日期", article.getCreateTime());
-            map.put("更新时间", article.getUpdateTime());
+            map.put("文章封面", Article.getCover());
+            map.put("简介", Article.getIntroduce());
+            map.put("题目", Article.getTitle());
+            map.put("内容", Article.getContent());
+            map.put("浏览量", Article.getViews());
+            map.put("是否展示", Article.getIsShow());
+            map.put("创建日期", Article.getCreateTime());
+            map.put("更新时间", Article.getUpdateTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

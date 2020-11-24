@@ -21,8 +21,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
 * @website https://el-admin.vip
-* @author LK
-* @date 2020-11-16
+* @author lk
+* @date 2020-11-24
 **/
 public interface ArticleRepository extends JpaRepository<Article, Long>, JpaSpecificationExecutor<Article> {
 }

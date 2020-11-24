@@ -32,56 +32,56 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
 * @website https://el-admin.vip
-* @author LK
-* @date 2020-11-16
+* @author lk
+* @date 2020-11-24
 **/
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "lkblog_文章管理")
-@RequestMapping("/api/article")
+@Api(tags = "文章管理")
+@RequestMapping("/api/Article")
 public class ArticleController {
 
-    private final ArticleService articleService;
+    private final ArticleService ArticleService;
 
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
-    @PreAuthorize("@el.check('article:list')")
+    @PreAuthorize("@el.check('Article:list')")
     public void download(HttpServletResponse response, ArticleQueryCriteria criteria) throws IOException {
-        articleService.download(articleService.queryAll(criteria), response);
+        ArticleService.download(ArticleService.queryAll(criteria), response);
     }
 
     @GetMapping
-    @Log("查询lkblog_文章")
-    @ApiOperation("查询lkblog_文章")
-    @PreAuthorize("@el.check('article:list')")
+    @Log("查询文章")
+    @ApiOperation("查询文章")
+    @PreAuthorize("@el.check('Article:list')")
     public ResponseEntity<Object> query(ArticleQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(articleService.queryAll(criteria,pageable),HttpStatus.OK);
+        return new ResponseEntity<>(ArticleService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
     @PostMapping
-    @Log("新增lkblog_文章")
-    @ApiOperation("新增lkblog_文章")
-    @PreAuthorize("@el.check('article:add')")
+    @Log("新增文章")
+    @ApiOperation("新增文章")
+    @PreAuthorize("@el.check('Article:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody Article resources){
-        return new ResponseEntity<>(articleService.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity<>(ArticleService.create(resources),HttpStatus.CREATED);
     }
 
     @PutMapping
-    @Log("修改lkblog_文章")
-    @ApiOperation("修改lkblog_文章")
-    @PreAuthorize("@el.check('article:edit')")
+    @Log("修改文章")
+    @ApiOperation("修改文章")
+    @PreAuthorize("@el.check('Article:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody Article resources){
-        articleService.update(resources);
+        ArticleService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @Log("删除lkblog_文章")
-    @ApiOperation("删除lkblog_文章")
-    @PreAuthorize("@el.check('article:del')")
+    @Log("删除文章")
+    @ApiOperation("删除文章")
+    @PreAuthorize("@el.check('Article:del')")
     @DeleteMapping
     public ResponseEntity<Object> delete(@RequestBody Long[] ids) {
-        articleService.deleteAll(ids);
+        ArticleService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

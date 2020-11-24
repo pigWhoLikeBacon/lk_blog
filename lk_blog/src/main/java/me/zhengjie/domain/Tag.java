@@ -28,12 +28,13 @@ import org.hibernate.annotations.*;
 import java.sql.Timestamp;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 /**
 * @website https://el-admin.vip
 * @description /
-* @author LK
-* @date 2020-11-16
+* @author lk
+* @date 2020-11-24
 **/
 @Entity
 @Data
@@ -42,14 +43,14 @@ public class Tag implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tag_id")
+    @Column(name = "id")
     @ApiModelProperty(value = "ID")
-    private Long tagId;
+    private Long id;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "tags")
     @ApiModelProperty(value = "文章")
-    private Collection<Article> Article;
+    private Collection<Article> articles;
 
     @Column(name = "content",nullable = false)
     @NotBlank

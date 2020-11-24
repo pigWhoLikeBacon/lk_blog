@@ -16,20 +16,26 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
+import me.zhengjie.domain.Tag;
+
 import java.sql.Timestamp;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 /**
 * @website https://el-admin.vip
 * @description /
-* @author LK
-* @date 2020-11-16
+* @author lk
+* @date 2020-11-24
 **/
 @Data
 public class ArticleDto implements Serializable {
 
     /** ID */
-    private Long articleId;
+    private Long id;
+
+    private Collection<TagDto> tags;
 
     /** 文章封面 */
     private String cover;

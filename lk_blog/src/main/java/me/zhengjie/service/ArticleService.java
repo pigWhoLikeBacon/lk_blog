@@ -27,8 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
 * @website https://el-admin.vip
 * @description 服务接口
-* @author LK
-* @date 2020-11-16
+* @author lk
+* @date 2020-11-24
 **/
 public interface ArticleService {
 
@@ -49,10 +49,10 @@ public interface ArticleService {
 
     /**
      * 根据ID查询
-     * @param articleId ID
+     * @param id ID
      * @return ArticleDto
      */
-    ArticleDto findById(Long articleId);
+    ArticleDto findById(Long id);
 
     /**
     * 创建

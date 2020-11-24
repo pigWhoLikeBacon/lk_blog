@@ -27,12 +27,13 @@ import org.hibernate.annotations.*;
 import java.sql.Timestamp;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 /**
 * @website https://el-admin.vip
 * @description /
-* @author LK
-* @date 2020-11-16
+* @author lk
+* @date 2020-11-24
 **/
 @Entity
 @Data
@@ -41,16 +42,16 @@ public class Article implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "article_id")
+    @Column(name = "id")
     @ApiModelProperty(value = "ID")
-    private Long articleId;
+    private Long id;
 
     @ManyToMany
+    @ApiModelProperty(value = "文章标签")
     @JoinTable(name = "lkblog_article_tag",
-            joinColumns = {@JoinColumn(name = "article_id",referencedColumnName = "article_id")},
-            inverseJoinColumns = {@JoinColumn(name = "tag_id",referencedColumnName = "tag_id")})
-    @ApiModelProperty(value = "标签")
-    private Collection<Tag> Tags;
+            joinColumns = {@JoinColumn(name = "article_id",referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id",referencedColumnName = "id")})
+    private Collection<Tag> tags;
 
     @Column(name = "cover",nullable = false)
     @NotBlank
