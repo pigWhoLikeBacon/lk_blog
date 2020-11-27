@@ -41,65 +41,65 @@ import java.util.LinkedHashMap;
 * @website https://el-admin.vip
 * @description 服务实现
 * @author lk
-* @date 2020-11-24
+* @date 2020-11-26
 **/
 @Service
 @RequiredArgsConstructor
 public class TagServiceImpl implements TagService {
 
-    private final TagRepository TagRepository;
-    private final TagMapper TagMapper;
+    private final TagRepository tagRepository;
+    private final TagMapper tagMapper;
 
     @Override
     public Map<String,Object> queryAll(TagQueryCriteria criteria, Pageable pageable){
-        Page<Tag> page = TagRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
-        return PageUtil.toPage(page.map(TagMapper::toDto));
+        Page<Tag> page = tagRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
+        return PageUtil.toPage(page.map(tagMapper::toDto));
     }
 
     @Override
     public List<TagDto> queryAll(TagQueryCriteria criteria){
-        return TagMapper.toDto(TagRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
+        return tagMapper.toDto(tagRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
     }
 
     @Override
     @Transactional
-    public TagDto findById(Long id) {
-        Tag Tag = TagRepository.findById(id).orElseGet(Tag::new);
-        ValidationUtil.isNull(Tag.getId(),"Tag","id",id);
-        return TagMapper.toDto(Tag);
+    public TagDto findById(Long tagId) {
+        Tag tag = tagRepository.findById(tagId).orElseGet(Tag::new);
+        ValidationUtil.isNull(tag.getTagId(),"Tag","tagId",tagId);
+        return tagMapper.toDto(tag);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public TagDto create(Tag resources) {
-        return TagMapper.toDto(TagRepository.save(resources));
+        return tagMapper.toDto(tagRepository.save(resources));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(Tag resources) {
-        Tag Tag = TagRepository.findById(resources.getId()).orElseGet(Tag::new);
-        ValidationUtil.isNull( Tag.getId(),"Tag","id",resources.getId());
-        Tag.copy(resources);
-        TagRepository.save(Tag);
+        Tag tag = tagRepository.findById(resources.getTagId()).orElseGet(Tag::new);
+        ValidationUtil.isNull( tag.getTagId(),"Tag","id",resources.getTagId());
+        tag.copy(resources);
+        tagRepository.save(tag);
     }
 
     @Override
     public void deleteAll(Long[] ids) {
-        for (Long id : ids) {
-            TagRepository.deleteById(id);
+        for (Long tagId : ids) {
+            tagRepository.deleteById(tagId);
         }
     }
 
     @Override
     public void download(List<TagDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
-        for (TagDto Tag : all) {
+        for (TagDto tag : all) {
             Map<String,Object> map = new LinkedHashMap<>();
-            map.put("内容", Tag.getContent());
-            map.put("color", Tag.getColor());
-            map.put("创建日期", Tag.getCreateTime());
-            map.put("更新时间", Tag.getUpdateTime());
+            map.put("内容", tag.getContent());
+            map.put("color", tag.getColor());
+            map.put("创建日期", tag.getCreateTime());
+            map.put("更新时间", tag.getUpdateTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

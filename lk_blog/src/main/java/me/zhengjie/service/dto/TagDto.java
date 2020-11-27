@@ -23,13 +23,13 @@ import java.io.Serializable;
 * @website https://el-admin.vip
 * @description /
 * @author lk
-* @date 2020-11-24
+* @date 2020-11-26
 **/
 @Data
 public class TagDto implements Serializable {
 
     /** ID */
-    private Long id;
+    private Long tagId;
 
     /** 内容 */
     private String content;

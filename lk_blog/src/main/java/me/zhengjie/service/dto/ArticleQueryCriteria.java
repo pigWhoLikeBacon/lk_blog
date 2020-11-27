@@ -22,7 +22,7 @@ import me.zhengjie.annotation.Query;
 /**
 * @website https://el-admin.vip
 * @author lk
-* @date 2020-11-24
+* @date 2020-11-26
 **/
 @Data
 public class ArticleQueryCriteria{

@@ -33,55 +33,55 @@ import javax.servlet.http.HttpServletResponse;
 /**
 * @website https://el-admin.vip
 * @author lk
-* @date 2020-11-25
+* @date 2020-11-26
 **/
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "标签管理")
-@RequestMapping("/api/Tag")
+@RequestMapping("/api/tag")
 public class TagController {
 
-    private final TagService TagService;
+    private final TagService tagService;
 
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
-    @PreAuthorize("@el.check('Tag:list')")
+    @PreAuthorize("@el.check('tag:list')")
     public void download(HttpServletResponse response, TagQueryCriteria criteria) throws IOException {
-        TagService.download(TagService.queryAll(criteria), response);
+        tagService.download(tagService.queryAll(criteria), response);
     }
 
     @GetMapping
     @Log("查询标签")
     @ApiOperation("查询标签")
-    @PreAuthorize("@el.check('Tag:list')")
+    @PreAuthorize("@el.check('tag:list')")
     public ResponseEntity<Object> query(TagQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(TagService.queryAll(criteria,pageable),HttpStatus.OK);
+        return new ResponseEntity<>(tagService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
     @PostMapping
     @Log("新增标签")
     @ApiOperation("新增标签")
-    @PreAuthorize("@el.check('Tag:add')")
+    @PreAuthorize("@el.check('tag:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody Tag resources){
-        return new ResponseEntity<>(TagService.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity<>(tagService.create(resources),HttpStatus.CREATED);
     }
 
     @PutMapping
     @Log("修改标签")
     @ApiOperation("修改标签")
-    @PreAuthorize("@el.check('Tag:edit')")
+    @PreAuthorize("@el.check('tag:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody Tag resources){
-        TagService.update(resources);
+        tagService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Log("删除标签")
     @ApiOperation("删除标签")
-    @PreAuthorize("@el.check('Tag:del')")
+    @PreAuthorize("@el.check('tag:del')")
     @DeleteMapping
     public ResponseEntity<Object> delete(@RequestBody Long[] ids) {
-        TagService.deleteAll(ids);
+        tagService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

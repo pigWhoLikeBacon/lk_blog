@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 * @website https://el-admin.vip
 * @description 服务接口
 * @author lk
-* @date 2020-11-24
+* @date 2020-11-26
 **/
 public interface TagService {
 
@@ -49,10 +49,10 @@ public interface TagService {
 
     /**
      * 根据ID查询
-     * @param id ID
+     * @param tagId ID
      * @return TagDto
      */
-    TagDto findById(Long id);
+    TagDto findById(Long tagId);
 
     /**
     * 创建

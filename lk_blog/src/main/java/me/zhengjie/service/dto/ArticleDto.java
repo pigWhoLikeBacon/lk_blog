@@ -21,13 +21,12 @@ import me.zhengjie.domain.Tag;
 import java.sql.Timestamp;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 
 /**
 * @website https://el-admin.vip
 * @description /
 * @author lk
-* @date 2020-11-24
+* @date 2020-11-26
 **/
 @Data
 public class ArticleDto implements Serializable {

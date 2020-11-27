@@ -33,55 +33,55 @@ import javax.servlet.http.HttpServletResponse;
 /**
 * @website https://el-admin.vip
 * @author lk
-* @date 2020-11-25
+* @date 2020-11-26
 **/
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "文章管理")
-@RequestMapping("/api/Article")
+@RequestMapping("/api/article")
 public class ArticleController {
 
-    private final ArticleService ArticleService;
+    private final ArticleService articleService;
 
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
-    @PreAuthorize("@el.check('Article:list')")
+    @PreAuthorize("@el.check('article:list')")
     public void download(HttpServletResponse response, ArticleQueryCriteria criteria) throws IOException {
-        ArticleService.download(ArticleService.queryAll(criteria), response);
+        articleService.download(articleService.queryAll(criteria), response);
     }
 
     @GetMapping
     @Log("查询文章")
     @ApiOperation("查询文章")
-    @PreAuthorize("@el.check('Article:list')")
+    @PreAuthorize("@el.check('article:list')")
     public ResponseEntity<Object> query(ArticleQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(ArticleService.queryAll(criteria,pageable),HttpStatus.OK);
+        return new ResponseEntity<>(articleService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
     @PostMapping
     @Log("新增文章")
     @ApiOperation("新增文章")
-    @PreAuthorize("@el.check('Article:add')")
+    @PreAuthorize("@el.check('article:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody Article resources){
-        return new ResponseEntity<>(ArticleService.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity<>(articleService.create(resources),HttpStatus.CREATED);
     }
 
     @PutMapping
     @Log("修改文章")
     @ApiOperation("修改文章")
-    @PreAuthorize("@el.check('Article:edit')")
+    @PreAuthorize("@el.check('article:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody Article resources){
-        ArticleService.update(resources);
+        articleService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Log("删除文章")
     @ApiOperation("删除文章")
-    @PreAuthorize("@el.check('Article:del')")
+    @PreAuthorize("@el.check('article:del')")
     @DeleteMapping
     public ResponseEntity<Object> delete(@RequestBody Long[] ids) {
-        ArticleService.deleteAll(ids);
+        articleService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
