@@ -44,7 +44,7 @@ public class Tag implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tag_id")
     @ApiModelProperty(value = "ID")
-    private Long tagId;
+    private Long id;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "tags")

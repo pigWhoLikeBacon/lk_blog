@@ -29,7 +29,7 @@ import java.io.Serializable;
 public class TagDto implements Serializable {
 
     /** ID */
-    private Long tagId;
+    private Long id;
 
     /** 内容 */
     private String content;

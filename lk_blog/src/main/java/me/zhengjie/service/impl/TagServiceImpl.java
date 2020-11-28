@@ -63,9 +63,9 @@ public class TagServiceImpl implements TagService {
 
     @Override
     @Transactional
-    public TagDto findById(Long tagId) {
-        Tag tag = tagRepository.findById(tagId).orElseGet(Tag::new);
-        ValidationUtil.isNull(tag.getTagId(),"Tag","tagId",tagId);
+    public TagDto findById(Long id) {
+        Tag tag = tagRepository.findById(id).orElseGet(Tag::new);
+        ValidationUtil.isNull(tag.getId(),"Tag","id",id);
         return tagMapper.toDto(tag);
     }
 
@@ -78,16 +78,16 @@ public class TagServiceImpl implements TagService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(Tag resources) {
-        Tag tag = tagRepository.findById(resources.getTagId()).orElseGet(Tag::new);
-        ValidationUtil.isNull( tag.getTagId(),"Tag","id",resources.getTagId());
+        Tag tag = tagRepository.findById(resources.getId()).orElseGet(Tag::new);
+        ValidationUtil.isNull( tag.getId(),"Tag","id",resources.getId());
         tag.copy(resources);
         tagRepository.save(tag);
     }
 
     @Override
     public void deleteAll(Long[] ids) {
-        for (Long tagId : ids) {
-            tagRepository.deleteById(tagId);
+        for (Long id : ids) {
+            tagRepository.deleteById(id);
         }
     }
 

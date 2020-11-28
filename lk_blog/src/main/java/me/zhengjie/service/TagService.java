@@ -49,10 +49,10 @@ public interface TagService {
 
     /**
      * 根据ID查询
-     * @param tagId ID
+     * @param id ID
      * @return TagDto
      */
-    TagDto findById(Long tagId);
+    TagDto findById(Long id);
 
     /**
     * 创建
