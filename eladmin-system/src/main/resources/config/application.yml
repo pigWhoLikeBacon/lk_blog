@@ -12,6 +12,8 @@ spring:
     redis:
       repositories:
         enabled: false
+    elasticsearch:
+      cluster-nodes: localhost:9300
 
   #配置 Jpa
   jpa:
