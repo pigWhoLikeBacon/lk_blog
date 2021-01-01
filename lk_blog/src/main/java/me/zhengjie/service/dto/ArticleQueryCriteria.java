@@ -26,4 +26,8 @@ import me.zhengjie.annotation.Query;
 **/
 @Data
 public class ArticleQueryCriteria{
+
+    @Query(blurry = "title,introduce,content")
+    private String blurry;
+
 }

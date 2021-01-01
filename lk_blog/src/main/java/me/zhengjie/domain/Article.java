@@ -24,7 +24,6 @@ import javax.validation.constraints.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import org.hibernate.annotations.*;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.sql.Timestamp;
 import java.io.Serializable;
@@ -39,7 +38,6 @@ import java.util.Collection;
 @Entity
 @Data
 @Table(name="lkblog_article")
-@Document(indexName = "eladmin",type = "lkblog_article")
 public class Article implements Serializable {
 
     @Id
