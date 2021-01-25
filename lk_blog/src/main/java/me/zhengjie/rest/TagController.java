@@ -84,4 +84,11 @@ public class TagController {
         tagService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @Log("获取可展示的标签")
+    @ApiOperation("获取可展示的标签")
+    @GetMapping(value = "/show")
+    public ResponseEntity<Object> all(TagQueryCriteria criteria, Pageable pageable){
+        return new ResponseEntity<>(tagService.queryAll(criteria,pageable),HttpStatus.OK);
+    }
 }

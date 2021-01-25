@@ -107,6 +107,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js",
                         "/webSocket/**"
                 ).permitAll()
+
+                //lk_blog
+                .antMatchers("/api/tag/show").permitAll()
+                .antMatchers("/api/article/show").permitAll()
+
                 // swagger 文档
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()

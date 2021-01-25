@@ -16,6 +16,8 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
+
+import java.sql.Timestamp;
 import java.util.List;
 import me.zhengjie.annotation.Query;
 
@@ -27,7 +29,15 @@ import me.zhengjie.annotation.Query;
 @Data
 public class ArticleQueryCriteria{
 
+    @Query
+    private Long id;
+
+    @Query
+    private Boolean isShow;
+
     @Query(blurry = "title,introduce,content")
     private String blurry;
 
+    @Query(type = Query.Type.BETWEEN)
+    private List<Timestamp> createTime;
 }
