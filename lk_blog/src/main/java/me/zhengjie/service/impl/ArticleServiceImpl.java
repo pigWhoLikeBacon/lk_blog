@@ -15,9 +15,8 @@
 */
 package me.zhengjie.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import me.zhengjie.domain.Article;
-import me.zhengjie.domain.Tag;
-import me.zhengjie.repository.TagRepository;
 import me.zhengjie.utils.ValidationUtil;
 import me.zhengjie.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
@@ -32,12 +31,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import me.zhengjie.utils.PageUtil;
 import me.zhengjie.utils.QueryHelp;
-import java.util.List;
-import java.util.Map;
+
+import java.sql.Timestamp;
+import java.util.*;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 /**
 * @website https://el-admin.vip
@@ -49,7 +47,6 @@ import java.util.LinkedHashMap;
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
 
-    private final TagRepository tagRepository;
     private final ArticleRepository articleRepository;
     private final ArticleMapper articleMapper;
 
@@ -110,5 +107,19 @@ public class ArticleServiceImpl implements ArticleService {
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);
+    }
+
+    @Override
+    public Set<JSONObject> queryFile(){
+        Set<JSONObject> file = new HashSet<>();
+        List<ArticleDto> articles = this.queryAll(new ArticleQueryCriteria());
+        for (ArticleDto article : articles) {
+            Timestamp t = article.getCreateTime();
+            JSONObject json = new JSONObject();
+            json.put("year", t.getYear() + 1900);
+            json.put("month", t.getMonth() + 1);
+            file.add(json);
+        }
+        return file;
     }
 }

@@ -28,8 +28,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -98,14 +96,7 @@ public class ArticleController {
     @Log("查询归档")
     @ApiOperation("查询归档")
     @GetMapping(value = "/file")
-    public Object queryFile(){
-        Set<String> file = new HashSet<>();
-        file.add("hhd1");
-        file.add("hhd2");
-        file.add("hhd3");
-        file.add("hhd1");
-        articleService.queryAll(new ArticleQueryCriteria());
-//        return file;
-        return articleService.queryAll(new ArticleQueryCriteria());
+    public ResponseEntity<Object> queryFile(){
+        return new ResponseEntity<>(articleService.queryFile(),HttpStatus.OK);
     }
 }

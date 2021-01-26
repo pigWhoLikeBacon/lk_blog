@@ -15,6 +15,7 @@
 */
 package me.zhengjie.service;
 
+import com.alibaba.fastjson.JSONObject;
 import me.zhengjie.domain.Article;
 import me.zhengjie.service.dto.ArticleDto;
 import me.zhengjie.service.dto.ArticleQueryCriteria;
@@ -22,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.Map;
 import java.util.List;
 import java.io.IOException;
+import java.util.Set;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -80,4 +82,10 @@ public interface ArticleService {
     * @throws IOException /
     */
     void download(List<ArticleDto> all, HttpServletResponse response) throws IOException;
+
+    /**
+     * 查询归档
+     * @return Set<JSONObject>
+     */
+    Set<JSONObject> queryFile();
 }
