@@ -43,7 +43,7 @@ public class ArticleQueryCriteria{
     private String blurry;
 
     @Query(propName = "id", type = Query.Type.IN, joinName = "tags")
-    private Set<Long> tagIds = new HashSet<>();
+    private Collection<Long> tagIds;
 
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;

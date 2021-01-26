@@ -111,6 +111,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //lk_blog
                 .antMatchers("/api/tag/show").permitAll()
                 .antMatchers("/api/article/show").permitAll()
+                .antMatchers("/api/article/file").permitAll()
 
                 // swagger 文档
                 .antMatchers("/swagger-ui.html").permitAll()

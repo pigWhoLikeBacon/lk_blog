@@ -28,6 +28,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -88,8 +90,22 @@ public class ArticleController {
     @Log("查询可展示文章")
     @ApiOperation("查询可展示文章")
     @GetMapping(value = "/show")
-    public Object queryShow(ArticleQueryCriteria criteria, Pageable pageable){
+    public ResponseEntity<Object> queryShow(ArticleQueryCriteria criteria, Pageable pageable){
         criteria.setIsShow(true);
         return new ResponseEntity<>(articleService.queryAll(criteria,pageable),HttpStatus.OK);
+    }
+
+    @Log("查询归档")
+    @ApiOperation("查询归档")
+    @GetMapping(value = "/file")
+    public Object queryFile(){
+        Set<String> file = new HashSet<>();
+        file.add("hhd1");
+        file.add("hhd2");
+        file.add("hhd3");
+        file.add("hhd1");
+        articleService.queryAll(new ArticleQueryCriteria());
+//        return file;
+        return articleService.queryAll(new ArticleQueryCriteria());
     }
 }
