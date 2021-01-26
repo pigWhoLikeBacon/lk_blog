@@ -18,7 +18,11 @@ package me.zhengjie.service.dto;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import me.zhengjie.annotation.Query;
 
 /**
@@ -37,6 +41,9 @@ public class ArticleQueryCriteria{
 
     @Query(blurry = "title,introduce,content")
     private String blurry;
+
+    @Query(propName = "id", type = Query.Type.IN, joinName = "tags")
+    private Set<Long> tagIds = new HashSet<>();
 
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;

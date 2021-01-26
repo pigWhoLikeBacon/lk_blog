@@ -88,9 +88,6 @@ public class ArticleController {
     @Log("查询可展示文章")
     @ApiOperation("查询可展示文章")
     @GetMapping(value = "/show")
-//    public ResponseEntity<Object> queryShow(ArticleQueryCriteria criteria, Pageable pageable){
-//        System.out.println(criteria.toString());
-//        return new ResponseEntity<>(articleService.queryAll(criteria,pageable),HttpStatus.OK);
     public Object queryShow(ArticleQueryCriteria criteria, Pageable pageable){
         criteria.setIsShow(true);
         return new ResponseEntity<>(articleService.queryAll(criteria,pageable),HttpStatus.OK);

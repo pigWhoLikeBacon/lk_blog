@@ -16,6 +16,8 @@
 package me.zhengjie.service.impl;
 
 import me.zhengjie.domain.Article;
+import me.zhengjie.domain.Tag;
+import me.zhengjie.repository.TagRepository;
 import me.zhengjie.utils.ValidationUtil;
 import me.zhengjie.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +49,7 @@ import java.util.LinkedHashMap;
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
 
+    private final TagRepository tagRepository;
     private final ArticleRepository articleRepository;
     private final ArticleMapper articleMapper;
 
