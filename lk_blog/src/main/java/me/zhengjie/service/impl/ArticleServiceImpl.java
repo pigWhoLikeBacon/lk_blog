@@ -15,7 +15,6 @@
 */
 package me.zhengjie.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import me.zhengjie.domain.Article;
 import me.zhengjie.utils.ValidationUtil;
 import me.zhengjie.utils.FileUtil;
@@ -110,15 +109,29 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Set<JSONObject> queryFile(){
-        Set<JSONObject> file = new HashSet<>();
+    public HashMap queryFile(){
         List<ArticleDto> articles = this.queryAll(new ArticleQueryCriteria());
+
+        HashMap<String, HashMap<String, Integer>> file = new HashMap<String, HashMap<String, Integer>>();
+
         for (ArticleDto article : articles) {
-            Timestamp t = article.getCreateTime();
-            JSONObject json = new JSONObject();
-            json.put("year", t.getYear() + 1900);
-            json.put("month", t.getMonth() + 1);
-            file.add(json);
+            if (article.getIsShow()) {
+                Timestamp t = article.getCreateTime();
+                int year = t.getYear() + 1900;
+                int month = t.getMonth() + 1;
+                String key = year + "-" + month;
+                if (file.containsKey(key)) {
+                    HashMap<String, Integer> map = file.get(key);
+                    map.replace("num", map.get("num") + 1);
+                    file.replace(key, map);
+                } else {
+                    HashMap<String, Integer> map = new HashMap<String, Integer>();
+                    map.put("year", year);
+                    map.put("month", month);
+                    map.put("num", 1);
+                    file.put(key, map);
+                }
+            }
         }
         return file;
     }

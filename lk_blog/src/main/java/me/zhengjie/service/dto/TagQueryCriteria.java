@@ -26,4 +26,8 @@ import me.zhengjie.annotation.Query;
 **/
 @Data
 public class TagQueryCriteria{
+
+    @Query
+    private Long id;
+
 }
