@@ -19,6 +19,8 @@ import me.zhengjie.annotation.Log;
 import me.zhengjie.domain.Article;
 import me.zhengjie.service.ArticleService;
 import me.zhengjie.service.dto.ArticleQueryCriteria;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -63,6 +65,7 @@ public class ArticleController {
     @Log("新增文章")
     @ApiOperation("新增文章")
     @PreAuthorize("@el.check('article:add')")
+    @CacheEvict(value = "article", allEntries = true)
     public ResponseEntity<Object> create(@Validated @RequestBody Article resources){
         return new ResponseEntity<>(articleService.create(resources),HttpStatus.CREATED);
     }
@@ -71,6 +74,7 @@ public class ArticleController {
     @Log("修改文章")
     @ApiOperation("修改文章")
     @PreAuthorize("@el.check('article:edit')")
+    @CacheEvict(value = "article", allEntries = true)
     public ResponseEntity<Object> update(@Validated @RequestBody Article resources){
         articleService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -80,6 +84,7 @@ public class ArticleController {
     @ApiOperation("删除文章")
     @PreAuthorize("@el.check('article:del')")
     @DeleteMapping
+    @CacheEvict(value = "article", allEntries = true)
     public ResponseEntity<Object> delete(@RequestBody Long[] ids) {
         articleService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -88,6 +93,7 @@ public class ArticleController {
     @Log("查询可展示文章")
     @ApiOperation("查询可展示文章")
     @GetMapping(value = "/show")
+    @Cacheable(value = "article", key = "'queryShow' + #criteria + '_' + #pageable")
     public ResponseEntity<Object> queryShow(ArticleQueryCriteria criteria, Pageable pageable){
         criteria.setIsShow(true);
         return new ResponseEntity<>(articleService.queryAll(criteria,pageable),HttpStatus.OK);
@@ -96,6 +102,7 @@ public class ArticleController {
     @Log("查询归档")
     @ApiOperation("查询归档")
     @GetMapping(value = "/file")
+    @Cacheable(value = "article", key = "'queryFile'")
     public ResponseEntity<Object> queryFile(){
         return new ResponseEntity<>(articleService.queryFile(),HttpStatus.OK);
     }

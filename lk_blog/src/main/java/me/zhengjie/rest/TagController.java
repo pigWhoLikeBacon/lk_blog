@@ -19,6 +19,8 @@ import me.zhengjie.annotation.Log;
 import me.zhengjie.domain.Tag;
 import me.zhengjie.service.TagService;
 import me.zhengjie.service.dto.TagQueryCriteria;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -63,6 +65,7 @@ public class TagController {
     @Log("新增标签")
     @ApiOperation("新增标签")
     @PreAuthorize("@el.check('tag:add')")
+    @CacheEvict(value = "tag", allEntries = true)
     public ResponseEntity<Object> create(@Validated @RequestBody Tag resources){
         return new ResponseEntity<>(tagService.create(resources),HttpStatus.CREATED);
     }
@@ -71,6 +74,7 @@ public class TagController {
     @Log("修改标签")
     @ApiOperation("修改标签")
     @PreAuthorize("@el.check('tag:edit')")
+    @CacheEvict(value = "tag", allEntries = true)
     public ResponseEntity<Object> update(@Validated @RequestBody Tag resources){
         tagService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -80,6 +84,7 @@ public class TagController {
     @ApiOperation("删除标签")
     @PreAuthorize("@el.check('tag:del')")
     @DeleteMapping
+    @CacheEvict(value = "tag", allEntries = true)
     public ResponseEntity<Object> delete(@RequestBody Long[] ids) {
         tagService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -88,7 +93,8 @@ public class TagController {
     @Log("获取可展示的标签")
     @ApiOperation("获取可展示的标签")
     @GetMapping(value = "/show")
-    public ResponseEntity<Object> all(TagQueryCriteria criteria, Pageable pageable){
+    @Cacheable(value = "tag", key = "'show' + #criteria + '_' + #pageable")
+    public ResponseEntity<Object> show(TagQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(tagService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 }
